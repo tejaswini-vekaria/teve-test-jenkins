@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List of Employees</title>
+<!--    styling library for the jQuery Datatable , cdn link-->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/jq-3.6.0/dt-1.11.4/datatables.min.css"/>
+<!--    bootstrap 5 for table , buttons etc.-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+<!--here the container class will provide left and right side padding-->
+<div class="container">
+    <h3>List Employees</h3>
+    <hr/>
+    <a th:href="@{/addEmployeeForm}" class="btn btn-primary mb-2">Add new employee</a>
+    <table class="table table-bordered table-striped" id="employeeTable" >
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Department</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="employee:${employees}">
+                <td th:text="${employee.name}"/>
+                <td th:text="${employee.email}"/>
+                <td th:text="${employee.department}"/>
+                <td>
+<!--                              uri=/showUpdateForm(emloyeeId as query param/query parameter & make use of variable expression)-->
+                    <a th:href="@{/showUpdateForm(employeeId=${employee.id})}" class="btn btn-info">Update</a>
+
+                    <a th:href="@{/deleteEmployee(employeeId=${employee.id})}" class="btn btn-danger ml-2">Delete</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<!--JQuery DataTable plugin (1)top into the link tag & (2) just before closing the body tag inside the script-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!--This jQuery DataTable is dependent on the jQuery core library we need to add that as well -->
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs5/jq-3.6.0/dt-1.11.4/datatables.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $("#employeeTable").DataTable({
+            'aoColumnDefs':[{'bSortable':false,'aTargets':[-1]}]
+        });
+    })
+</script>
+</body>
+</html>

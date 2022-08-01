@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List of Employees</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<div class="container">
+    <h2>Add Employee</h2>
+    <hr/>
+    <form th:action="@{/saveEmployee}" th:object="${employee}" method="POST">
+<!--        for the update we need id field-->
+        <input type="hidden" th:field="*{id}">
+        <input type="text" th:field="*{name}" placeholder="Enter employee name here" class="form-control col-4 mb-4"/>
+        <input type="text" th:field="*{email}" placeholder="Enter employee email address here" class="form-control col-4 mb-4"/>
+        <input type="text" th:field="*{department}" placeholder="Enter employee department here" class="form-control col-4 mb-4"/>
+        <button class="btn btn-primary" type="submit">Save</button>
+        <input type="hidden" th:field="*{id}"/>
+    </form>
+    <hr/>
+    <a th:href="@{/list}">Back to list</a>
+</div>
+<body>
+</body>
+</html>
